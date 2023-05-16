@@ -69,7 +69,7 @@ dependencies {
     implementation "androidx.compose.material3:material3:$material3_version"
 
 
-    // core library desugaring
+    // core library Desugaring
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
 
     testImplementation 'junit:junit:4.13.2'
@@ -90,4 +90,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3'
     implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.3'
+
+    // splashscreen api
+    implementation 'androidx.core:core-splashscreen:1.0.1'
 }
