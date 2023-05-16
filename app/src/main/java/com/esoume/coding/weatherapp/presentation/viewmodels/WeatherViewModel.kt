@@ -1,6 +1,5 @@
 package com.esoume.coding.weatherapp.presentation.viewmodels
 
-import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.esoume.coding.weatherapp.domain.location.LocationTracker
@@ -21,8 +20,8 @@ class WeatherViewModel @Inject constructor(
     private val locationTracker: LocationTracker
 ): ViewModel() {
 
-    // Expose screen Weather UI state
-    private val _uiState = MutableStateFlow(WeatherState())
+    // Expose screen Weather UI state and initialize to loading for splashscreen
+    private val _uiState = MutableStateFlow(WeatherState(isLoading = true))
     // Backing property to avoid state updates from other classes
     val uiState: StateFlow<WeatherState> = _uiState.asStateFlow()
 
@@ -34,6 +33,7 @@ class WeatherViewModel @Inject constructor(
                     error = null
                 )
             }
+
             locationTracker.getCurrentLocation()?.let { location ->
                 val result = repository.getWeatherData(location.latitude, location.longitude)
 
@@ -53,14 +53,6 @@ class WeatherViewModel @Inject constructor(
                                 weatherInfo = null,
                                 isLoading = false,
                                 error = result.message
-                            )
-                        }
-                    }
-                    else -> {
-                        _uiState.update { weatherState ->
-                            weatherState.copy(
-                                isLoading = false,
-                                error = "Couldn't retrieve location. Make sure to grant permission and enable GPS."
                             )
                         }
                     }

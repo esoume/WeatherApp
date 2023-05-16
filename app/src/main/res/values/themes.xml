@@ -5,7 +5,8 @@
     </style>
 
     <style name="Theme.WeatherApp.Starting" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
+        <item name="windowSplashScreenBackground">#1B3B5A</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/baseline_wb_sunny_24</item>
         <item name="postSplashScreenTheme">@style/Theme.WeatherApp</item>
     </style>
 </resources>
