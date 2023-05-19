@@ -103,4 +103,7 @@ dependencies {
     // When using the BoM, don't specify versions in Firebase dependencies
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
+    // Add OneSignal SDK
+    implementation 'com.onesignal:OneSignal:[4.0.0, 4.99.99]'
+
 }
