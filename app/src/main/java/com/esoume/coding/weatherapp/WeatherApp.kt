@@ -2,8 +2,6 @@ package com.esoume.coding.weatherapp
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
-
-
 import com.onesignal.OneSignal
 
 // Replace the below with your own ONESIGNAL_APP_ID
@@ -22,7 +20,8 @@ class WeatherApp : Application() {
         OneSignal.setAppId(ONESIGNAL_APP_ID)
 
         // promptForPushNotifications will show the native Android notification permission prompt.
-        // We recommend removing the following code and instead using an In-App Message to prompt for notification permission (See step 7)
+        // We recommend removing the following code and instead using an In-App Message to prompt
+        // for notification permission (See step 7)
         OneSignal.promptForPushNotifications()
     }
 }
