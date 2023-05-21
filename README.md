@@ -12,6 +12,7 @@ Sample App to show how use the API meteo
 ## Tech stack & Open-source libraries
 - [Kotlin](https://kotlinlang.org/) based
 - [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) for asynchronous.
+- [SplashScreen API] (https://developer.android.com/develop/ui/views/launch/splash-screen)
 - [JetPack](https://developer.android.com/jetpack)
   - [Compose](https://developer.android.com/jetpack/compose) - Modern toolkit for building native UI.
   - [Lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle) - Create a UI that automatically responds to lifecycle events.
