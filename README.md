@@ -19,7 +19,6 @@ Sample App to show how use the API meteo
   - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - UI related data holder, lifecycle aware.
 - [Hilt](https://dagger.dev/hilt/) 
 - For [dependency injection](https://developer.android.com/training/dependency-injection/hilt-android).
-- [Coil](https://github.com/coil-kt/coil) 
 - An image loading library for Android backed by Kotlin Coroutines.
 - [Firebase](https://firebase.google.com/) 
 - Firestore Database and Storage
