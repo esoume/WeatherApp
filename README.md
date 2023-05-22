@@ -1,5 +1,6 @@
 # WeatherApp
-Sample App to show how use the API meteo
+Sample App to showcase how use the open API Meteo 
+# https://api.open-meteo.com/
 
 ## Screenshots
 
