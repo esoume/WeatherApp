@@ -1,6 +1,7 @@
 package com.esoume.coding.weatherapp.presentation
 
 import android.Manifest
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -59,6 +60,10 @@ class MainActivity : ComponentActivity() {
             )
         )
         setContent {
+            val action: String? = intent?.action
+            val data: Uri? = intent?.data;
+            println("MainActivity : action = $action \n uri = ${data?.toString()}")
+
             WeatherAppTheme {
                 val weatherUiState = viewModel.uiState.collectAsState()
                 val refreshing = viewModel.isRefresh.collectAsState()
