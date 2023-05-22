@@ -9,8 +9,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,6 +38,7 @@ class MainActivity : ComponentActivity() {
     private val viewModel: WeatherViewModel by viewModels()
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
 
+    @OptIn(ExperimentalMaterialApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
 
@@ -54,19 +61,29 @@ class MainActivity : ComponentActivity() {
         setContent {
             WeatherAppTheme {
                 val weatherUiState = viewModel.uiState.collectAsState()
+                val refreshing = viewModel.isRefresh.collectAsState()
+                val pullRefreshState = rememberPullRefreshState(
+                    refreshing = refreshing.value,
+                    onRefresh = { viewModel.refresh() }
+                )
 
                 splashScreen.setKeepOnScreenCondition {
                     weatherUiState.value.isLoading
                 }
 
                 Box(
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .pullRefresh(pullRefreshState)
+                        .verticalScroll(rememberScrollState())
                 ) {
+
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
                             .background(DarkBlue)
                     ) {
+
                         WeatherCard(
                             state = weatherUiState.value,
                             backgroundColor = DeepBlue
@@ -74,6 +91,12 @@ class MainActivity : ComponentActivity() {
                         Spacer(modifier = Modifier.height(16.dp))
                         WeatherForecast(state = weatherUiState.value)
                     }
+                    PullRefreshIndicator(
+                        refreshing = refreshing.value,
+                        state = pullRefreshState,
+                        modifier = Modifier.align(Alignment.TopCenter)
+                    )
+
                     if (weatherUiState.value.isLoading) {
                         CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                     }

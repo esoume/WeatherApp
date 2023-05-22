@@ -7,6 +7,8 @@ import com.esoume.coding.weatherapp.domain.repository.WeatherRepository
 import com.esoume.coding.weatherapp.domain.util.Resource
 import com.esoume.coding.weatherapp.presentation.state.WeatherState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,6 +27,21 @@ class WeatherViewModel @Inject constructor(
     // Backing property to avoid state updates from other classes
     val uiState: StateFlow<WeatherState> = _uiState.asStateFlow()
 
+    //
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefresh = _isRefreshing.asStateFlow()
+
+    fun refresh(){
+        viewModelScope.launch {
+            _isRefreshing.update { true }
+            async(Dispatchers.IO) {
+                getCurrentLocation()
+            }.await()
+            // Set _isRefreshing to false to indicate the refresh is complete
+            _isRefreshing.emit(false)
+        }
+    }
+
     fun loadWeatherInfo() {
         viewModelScope.launch {
             _uiState.update {currentState ->
@@ -33,28 +50,31 @@ class WeatherViewModel @Inject constructor(
                     error = null
                 )
             }
+            getCurrentLocation()
+        }
+    }
 
-            locationTracker.getCurrentLocation()?.let { location ->
-                val result = repository.getWeatherData(location.latitude, location.longitude)
+    private suspend fun getCurrentLocation(){
+        locationTracker.getCurrentLocation()?.let { location ->
+            val result = repository.getWeatherData(location.latitude, location.longitude)
 
-                when (result) {
-                    is Resource.Success -> {
-                        _uiState.update { currentState ->
-                            currentState.copy(
-                                weatherInfo = result.data,
-                                isLoading = false,
-                                error = null
-                            )
-                        }
+            when (result) {
+                is Resource.Success -> {
+                    _uiState.update { currentState ->
+                        currentState.copy(
+                            weatherInfo = result.data,
+                            isLoading = false,
+                            error = null
+                        )
                     }
-                    is Resource.Error -> {
-                        _uiState.update { weatherState ->
-                            weatherState.copy(
-                                weatherInfo = null,
-                                isLoading = false,
-                                error = result.message
-                            )
-                        }
+                }
+                is Resource.Error -> {
+                    _uiState.update { weatherState ->
+                        weatherState.copy(
+                            weatherInfo = null,
+                            isLoading = false,
+                            error = result.message
+                        )
                     }
                 }
             }
