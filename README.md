@@ -29,6 +29,7 @@ Sample App to show how use the API meteo
 ## Features
 
 - Jetpack Compose UI. Custom animations, transiations, light/dark theme and layouts.
+- Material design 3
 - Jetpack Compose Navigation
 - Clean Architecutre
 - Dependency injection with Hilt
