@@ -2,7 +2,7 @@ package com.esoume.coding.weatherapp.data.repository.forecast
 
 import com.esoume.coding.weatherapp.data.mappers.toWeatherInfo
 import com.esoume.coding.weatherapp.data.remote.forecast.api.WeatherApi
-import com.esoume.coding.weatherapp.domain.repository.WeatherRepository
+import com.esoume.coding.weatherapp.domain.repository.forecast.WeatherRepository
 import com.esoume.coding.weatherapp.domain.util.Resource
 import com.esoume.coding.weatherapp.domain.weather.WeatherInfo
 import javax.inject.Inject

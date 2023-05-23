@@ -1,9 +1,10 @@
-package com.esoume.coding.weatherapp.presentation.viewmodels
+package com.esoume.coding.weatherapp.presentation.viewmodels.forecast
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.esoume.coding.weatherapp.data.repository.onboarding.RepositoryOnboardingImpl
 import com.esoume.coding.weatherapp.domain.location.LocationTracker
-import com.esoume.coding.weatherapp.domain.repository.WeatherRepository
+import com.esoume.coding.weatherapp.domain.repository.forecast.WeatherRepository
 import com.esoume.coding.weatherapp.domain.util.Resource
 import com.esoume.coding.weatherapp.presentation.state.WeatherState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
     private val repository: WeatherRepository,
+    private val repositoryOnboardingImpl: RepositoryOnboardingImpl,
     private val locationTracker: LocationTracker
 ): ViewModel() {
 

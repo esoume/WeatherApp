@@ -1,7 +1,7 @@
 package com.esoume.coding.weatherapp.di
 
 import com.esoume.coding.weatherapp.data.repository.forecast.WeatherRepositoryImpl
-import com.esoume.coding.weatherapp.domain.repository.WeatherRepository
+import com.esoume.coding.weatherapp.domain.repository.forecast.WeatherRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

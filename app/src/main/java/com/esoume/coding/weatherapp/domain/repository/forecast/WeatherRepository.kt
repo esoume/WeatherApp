@@ -1,4 +1,4 @@
-package com.esoume.coding.weatherapp.domain.repository
+package com.esoume.coding.weatherapp.domain.repository.forecast
 
 import com.esoume.coding.weatherapp.domain.util.Resource
 import com.esoume.coding.weatherapp.domain.weather.WeatherInfo

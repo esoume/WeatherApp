@@ -25,25 +25,29 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.compose.rememberNavController
+import com.esoume.coding.weatherapp.presentation.navigation.SetupNavGraph
 import com.esoume.coding.weatherapp.presentation.screen.WeatherCard
 import com.esoume.coding.weatherapp.presentation.screen.WeatherForecast
 import com.esoume.coding.weatherapp.presentation.theme.DarkBlue
 import com.esoume.coding.weatherapp.presentation.theme.DeepBlue
 import com.esoume.coding.weatherapp.presentation.theme.WeatherAppTheme
-import com.esoume.coding.weatherapp.presentation.viewmodels.WeatherViewModel
+import com.esoume.coding.weatherapp.presentation.viewmodels.forecast.WeatherViewModel
+import com.esoume.coding.weatherapp.presentation.viewmodels.splash.SplashScreenViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val viewModel: WeatherViewModel by viewModels()
+    private val splashScreenViewModel: SplashScreenViewModel by viewModels()
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
 
     @OptIn(ExperimentalMaterialApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
-
         super.onCreate(savedInstanceState)
+
         permissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) { permissions ->
@@ -65,6 +69,11 @@ class MainActivity : ComponentActivity() {
             println("MainActivity : action = $action \n uri = ${data?.toString()}")
 
             WeatherAppTheme {
+                val screen = splashScreenViewModel.startDestination.value
+                val navController = rememberNavController()
+                // start onBoarding Page
+                SetupNavGraph(navController = navController, startDestination = screen)
+
                 val weatherUiState = viewModel.uiState.collectAsState()
                 val refreshing = viewModel.isRefresh.collectAsState()
                 val pullRefreshState = rememberPullRefreshState(
