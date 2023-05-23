@@ -1,6 +1,6 @@
-package com.esoume.coding.weatherapp.data.remote.api
+package com.esoume.coding.weatherapp.data.remote.forecast.api
 
-import com.esoume.coding.weatherapp.data.remote.dto.WeatherDto
+import com.esoume.coding.weatherapp.data.remote.forecast.dto.WeatherDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 

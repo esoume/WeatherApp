@@ -35,7 +35,7 @@ class WeatherViewModel @Inject constructor(
         viewModelScope.launch {
             _isRefreshing.update { true }
             async(Dispatchers.IO) {
-                getCurrentLocation()
+                getCurrentLocationWeather()
             }.await()
             // Set _isRefreshing to false to indicate the refresh is complete
             _isRefreshing.emit(false)
@@ -44,17 +44,17 @@ class WeatherViewModel @Inject constructor(
 
     fun loadWeatherInfo() {
         viewModelScope.launch {
-            _uiState.update {currentState ->
-                currentState.copy(
-                    isLoading = true,
-                    error = null
-                )
-            }
-            getCurrentLocation()
+            getCurrentLocationWeather()
         }
     }
 
-    private suspend fun getCurrentLocation(){
+    private suspend fun getCurrentLocationWeather(){
+        _uiState.update {currentState ->
+            currentState.copy(
+                isLoading = true,
+                error = null
+            )
+        }
         locationTracker.getCurrentLocation()?.let { location ->
             val result = repository.getWeatherData(location.latitude, location.longitude)
 

@@ -1,4 +1,4 @@
-package com.esoume.coding.weatherapp.data.remote.dto
+package com.esoume.coding.weatherapp.data.remote.forecast.dto
 
 import com.squareup.moshi.Json
 

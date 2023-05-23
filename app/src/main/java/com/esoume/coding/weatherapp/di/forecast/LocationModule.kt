@@ -1,4 +1,4 @@
-package com.esoume.coding.weatherapp.di
+package com.esoume.coding.weatherapp.di.forecast
 
 import com.esoume.coding.weatherapp.data.location.DefaultLocationTracker
 import com.esoume.coding.weatherapp.domain.location.LocationTracker

@@ -1,7 +1,7 @@
-package com.esoume.coding.weatherapp.di
+package com.esoume.coding.weatherapp.di.forecast
 
 import android.app.Application
-import com.esoume.coding.weatherapp.data.remote.api.WeatherApi
+import com.esoume.coding.weatherapp.data.remote.forecast.api.WeatherApi
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.Module

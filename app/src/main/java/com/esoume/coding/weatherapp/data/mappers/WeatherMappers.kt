@@ -1,7 +1,7 @@
 package com.esoume.coding.weatherapp.data.mappers
 
-import com.esoume.coding.weatherapp.data.remote.dto.WeatherDataDto
-import com.esoume.coding.weatherapp.data.remote.dto.WeatherDto
+import com.esoume.coding.weatherapp.data.remote.forecast.dto.WeatherDataDto
+import com.esoume.coding.weatherapp.data.remote.forecast.dto.WeatherDto
 import com.esoume.coding.weatherapp.domain.weather.WeatherData
 import com.esoume.coding.weatherapp.domain.weather.WeatherInfo
 import com.esoume.coding.weatherapp.domain.weather.WeatherType
