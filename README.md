@@ -1,5 +1,6 @@
 # WeatherApp
-Sample App to show how use the API meteo
+Sample App to showcase how use the open API Meteo 
+# https://api.open-meteo.com/
 
 ## Screenshots
 
@@ -15,6 +16,7 @@ Sample App to show how use the API meteo
 - [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) for asynchronous.
 - [SplashScreen API] (https://developer.android.com/develop/ui/views/launch/splash-screen)
 - [Pull-To-Refresh] (https://developer.android.com/reference/kotlin/androidx/compose/material/pullrefresh/package-summary)
+- [DeepLinks] (https://developer.android.com/training/app-links/deep-linking)
 - [JetPack](https://developer.android.com/jetpack)
   - [Compose](https://developer.android.com/jetpack/compose) - Modern toolkit for building native UI.
   - [Lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle) - Create a UI that automatically responds to lifecycle events.
