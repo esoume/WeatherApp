@@ -7,10 +7,11 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.esoume.coding.weatherapp.domain.repository.onboarding.RepositoryOnboarding
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 val Context.dataStore by preferencesDataStore(name = "on_boarding_pref")
 
-class RepositoryOnboardingImpl(context: Context) : RepositoryOnboarding {
+class RepositoryOnboardingImpl @Inject constructor(context: Context) : RepositoryOnboarding {
 
     private object PreferencesKey {
         val onBoardingKey = booleanPreferencesKey(name = "on_boarding_completed")
