@@ -45,6 +45,7 @@ fun HomePage(
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .background(DarkBlue)
             .pullRefresh(pullRefreshState)
             .verticalScroll(rememberScrollState())
     ) {
@@ -52,7 +53,6 @@ fun HomePage(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(DarkBlue)
         ) {
 
             WeatherCard(

@@ -20,10 +20,11 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-
     @Inject
     lateinit var splashScreenViewModel: SplashScreenViewModel
+
     private val viewModel: WeatherViewModel by viewModels()
+
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
 
     override fun onCreate(savedInstanceState: Bundle?) {

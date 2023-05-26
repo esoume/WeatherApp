@@ -16,6 +16,7 @@ class SplashScreenViewModel @Inject constructor(
 
     private val _startDestination: MutableState<String> = mutableStateOf(Screen.Welcome.route)
     val startDestination: State<String> = _startDestination
+
     init{
         start()
     }

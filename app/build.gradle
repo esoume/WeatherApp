@@ -111,4 +111,8 @@ dependencies {
     // Add OneSignal SDK
     implementation 'com.onesignal:OneSignal:[4.0.0, 4.99.99]'
 
+    // Glance library for Appwidgets
+    //implementation 'androidx.glance:glance:1.0.0-alpha'
+    implementation 'androidx.glance:glance-appwidget:1.0.0-alpha04'
+
 }

@@ -1,7 +1,9 @@
 package com.esoume.coding.weatherapp.data.mappers
 
+import com.esoume.coding.weatherapp.data.remote.forecast.dto.CurrentWeatherDto
 import com.esoume.coding.weatherapp.data.remote.forecast.dto.WeatherDataDto
 import com.esoume.coding.weatherapp.data.remote.forecast.dto.WeatherDto
+import com.esoume.coding.weatherapp.domain.weather.CurrentWeatherInfo
 import com.esoume.coding.weatherapp.domain.weather.WeatherData
 import com.esoume.coding.weatherapp.domain.weather.WeatherInfo
 import com.esoume.coding.weatherapp.domain.weather.WeatherType
@@ -20,6 +22,7 @@ fun WeatherDataDto.toWeatherDataMap(): Map<Int, List<WeatherData>> {
         val windSpeed = windSpeeds[index]
         val pressure = pressures[index]
         val humidity = humidities[index]
+
         IndexedWeatherData(
             index = index,
             data = WeatherData(
@@ -38,6 +41,17 @@ fun WeatherDataDto.toWeatherDataMap(): Map<Int, List<WeatherData>> {
     }
 }
 
+fun CurrentWeatherDto.toCurrentWeatherInfo(): CurrentWeatherInfo {
+    return CurrentWeatherInfo(
+        temperature = temperature,
+        windspeed = windspeed,
+        winddirection = winddirection,
+        weatherType = WeatherType.fromWMO(weathercode),
+        is_day = is_day,
+        time = LocalDateTime.parse(time, DateTimeFormatter.ISO_DATE_TIME)
+    )
+}
+
 fun WeatherDto.toWeatherInfo(): WeatherInfo {
     val weatherDataMap = weatherData.toWeatherDataMap()
     val now = LocalDateTime.now()
@@ -45,8 +59,10 @@ fun WeatherDto.toWeatherInfo(): WeatherInfo {
         val hour = if(now.minute < 30) now.hour else now.hour + 1
         it.time.hour == hour
     }
+
     return WeatherInfo(
         weatherDataPerDay = weatherDataMap,
-        currentWeatherData = currentWeatherData
+        currentWeatherData = currentWeatherData,
+        currentWeather = currentWeather.toCurrentWeatherInfo()
     )
 }
