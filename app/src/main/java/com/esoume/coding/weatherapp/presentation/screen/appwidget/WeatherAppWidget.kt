@@ -17,7 +17,7 @@ import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.esoume.coding.weatherapp.R
-import com.esoume.coding.weatherapp.presentation.screen.WeatherDataDisplay
+import com.esoume.coding.weatherapp.presentation.screen.forecast.WeatherDataDisplay
 import com.esoume.coding.weatherapp.presentation.state.WeatherState
 import com.esoume.coding.weatherapp.presentation.theme.DarkBlue
 import com.esoume.coding.weatherapp.presentation.viewmodels.forecast.WeatherViewModel
@@ -120,6 +120,5 @@ object WeatherAppWidget : GlanceAppWidget() {
                 }
             }
         }
-
     }
 }

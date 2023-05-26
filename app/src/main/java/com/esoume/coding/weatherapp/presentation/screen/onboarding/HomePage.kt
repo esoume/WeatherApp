@@ -18,8 +18,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen
 import androidx.navigation.NavHostController
-import com.esoume.coding.weatherapp.presentation.screen.WeatherCard
-import com.esoume.coding.weatherapp.presentation.screen.WeatherForecast
+import com.esoume.coding.weatherapp.presentation.screen.forecast.WeatherCard
+import com.esoume.coding.weatherapp.presentation.screen.forecast.WeatherForecast
 import com.esoume.coding.weatherapp.presentation.state.WeatherState
 import com.esoume.coding.weatherapp.presentation.theme.DarkBlue
 import com.esoume.coding.weatherapp.presentation.theme.DeepBlue

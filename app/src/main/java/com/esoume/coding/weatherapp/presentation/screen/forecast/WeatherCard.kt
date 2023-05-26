@@ -1,4 +1,4 @@
-package com.esoume.coding.weatherapp.presentation.screen
+package com.esoume.coding.weatherapp.presentation.screen.forecast
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.esoume.coding.weatherapp.R
 import com.esoume.coding.weatherapp.presentation.state.WeatherState
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.math.roundToInt
 
@@ -26,6 +27,7 @@ fun WeatherCard(
     backgroundColor: Color,
     modifier: Modifier = Modifier
 ) {
+
     state.weatherInfo?.currentWeather?.let { currentWeatherInfo ->
         Card(
             backgroundColor = backgroundColor,
@@ -40,7 +42,7 @@ fun WeatherCard(
             ) {
                 Text(
                     text = "Today ${
-                        currentWeatherInfo.time.format(
+                        LocalDateTime.now().format(
                             DateTimeFormatter.ofPattern("HH:mm")
                         )
                     }",

@@ -1,4 +1,4 @@
-package com.esoume.coding.weatherapp.presentation.screen
+package com.esoume.coding.weatherapp.presentation.screen.forecast
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow

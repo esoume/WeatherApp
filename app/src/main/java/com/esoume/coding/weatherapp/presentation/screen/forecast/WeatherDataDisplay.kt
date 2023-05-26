@@ -1,4 +1,4 @@
-package com.esoume.coding.weatherapp.presentation.screen
+package com.esoume.coding.weatherapp.presentation.screen.forecast
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
