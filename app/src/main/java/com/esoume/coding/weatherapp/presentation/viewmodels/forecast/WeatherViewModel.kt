@@ -48,7 +48,7 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
-    suspend fun getCurrentLocationWeather(){
+    private suspend fun getCurrentLocationWeather(){
         _uiState.update {currentState ->
             currentState.copy(
                 isLoading = true,
@@ -56,9 +56,11 @@ class WeatherViewModel @Inject constructor(
             )
         }
         locationTracker.getCurrentLocation()?.let { location ->
-            val result = repository.getWeatherData(location.latitude, location.longitude)
 
-            when (result) {
+            when (val result = repository.getWeatherData(
+                location.latitude,
+                location.longitude)
+            ) {
                 is Resource.Success -> {
                     _uiState.update { currentState ->
                         currentState.copy(

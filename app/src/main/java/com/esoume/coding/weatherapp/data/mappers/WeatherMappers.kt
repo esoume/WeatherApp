@@ -58,7 +58,7 @@ fun CurrentWeatherInfo.toWeatherWidgetInfo(): WeatherWidgetInfo{
         temperature = temperature,
         windSpeed = windSpeed,
         windDirection = windDirection,
-        time = time.format(DateTimeFormatter.ofPattern("HH:mm")),
+        time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")),
         is_day = is_day,
         weatherCode = WeatherType.toWMO(weatherType)
     )

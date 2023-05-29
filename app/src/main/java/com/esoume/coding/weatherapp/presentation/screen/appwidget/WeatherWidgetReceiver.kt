@@ -10,9 +10,11 @@ class WeatherWidgetReceiver: GlanceAppWidgetReceiver() {
 
     override fun onEnabled(context: Context) {
         super.onEnabled(context)
+        WeatherLocationWorker.enqueue(context)
     }
 
     override fun onDisabled(context: Context) {
         super.onDisabled(context)
+        WeatherLocationWorker.cancel(context)
     }
 }
