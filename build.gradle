@@ -2,6 +2,7 @@ buildscript {
     ext {
         compose_version = '1.4.3'
         material3_version = "1.1.0"
+        kotlin_version = '1.8.20'
     }
     repositories {
         // Make sure that you have the following two repositories

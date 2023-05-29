@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.esoume.coding.weatherapp.presentation.state.WeatherState
+import com.esoume.coding.weatherapp.presentation.state.forecast.WeatherState
 
 @Composable
 fun WeatherForecast(

@@ -1,4 +1,4 @@
-package com.esoume.coding.weatherapp.presentation.state
+package com.esoume.coding.weatherapp.presentation.state.forecast
 
 import com.esoume.coding.weatherapp.domain.weather.WeatherInfo
 

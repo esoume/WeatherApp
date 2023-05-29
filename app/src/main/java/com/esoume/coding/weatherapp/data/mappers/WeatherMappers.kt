@@ -7,6 +7,7 @@ import com.esoume.coding.weatherapp.domain.weather.CurrentWeatherInfo
 import com.esoume.coding.weatherapp.domain.weather.WeatherData
 import com.esoume.coding.weatherapp.domain.weather.WeatherInfo
 import com.esoume.coding.weatherapp.domain.weather.WeatherType
+import com.esoume.coding.weatherapp.presentation.state.widget.WeatherWidgetInfo
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -44,11 +45,22 @@ fun WeatherDataDto.toWeatherDataMap(): Map<Int, List<WeatherData>> {
 fun CurrentWeatherDto.toCurrentWeatherInfo(): CurrentWeatherInfo {
     return CurrentWeatherInfo(
         temperature = temperature,
-        windspeed = windspeed,
-        winddirection = winddirection,
+        windSpeed = windspeed,
+        windDirection = winddirection,
         weatherType = WeatherType.fromWMO(weathercode),
         is_day = is_day,
         time = LocalDateTime.parse(time, DateTimeFormatter.ISO_DATE_TIME)
+    )
+}
+
+fun CurrentWeatherInfo.toWeatherWidgetInfo(): WeatherWidgetInfo{
+    return WeatherWidgetInfo(
+        temperature = temperature,
+        windSpeed = windSpeed,
+        windDirection = windDirection,
+        time = time.format(DateTimeFormatter.ofPattern("HH:mm")),
+        is_day = is_day,
+        weatherCode = WeatherType.toWMO(weatherType)
     )
 }
 

@@ -4,8 +4,8 @@ import java.time.LocalDateTime
 
 data class CurrentWeatherInfo(
     val temperature: Double,
-    val windspeed: Double,
-    val winddirection: Double,
+    val windSpeed: Double,
+    val windDirection: Double,
     val weatherType: WeatherType,
     val is_day: Int,
     val time: LocalDateTime,

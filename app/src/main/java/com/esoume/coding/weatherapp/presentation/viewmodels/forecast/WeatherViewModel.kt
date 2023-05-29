@@ -2,13 +2,12 @@ package com.esoume.coding.weatherapp.presentation.viewmodels.forecast
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.esoume.coding.weatherapp.data.repository.onboarding.RepositoryOnboardingImpl
 import com.esoume.coding.weatherapp.domain.location.LocationTracker
 import com.esoume.coding.weatherapp.domain.repository.forecast.WeatherRepository
 import com.esoume.coding.weatherapp.domain.util.Resource
-import com.esoume.coding.weatherapp.presentation.state.WeatherState
+import com.esoume.coding.weatherapp.presentation.state.forecast.WeatherState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,7 +19,6 @@ import javax.inject.Inject
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
     private val repository: WeatherRepository,
-    private val repositoryOnboardingImpl: RepositoryOnboardingImpl,
     private val locationTracker: LocationTracker
 ): ViewModel() {
 
@@ -36,7 +34,7 @@ class WeatherViewModel @Inject constructor(
     fun refresh(){
         viewModelScope.launch {
             _isRefreshing.update { true }
-            async(Dispatchers.IO) {
+            async(IO) {
                 getCurrentLocationWeather()
             }.await()
             // Set _isRefreshing to false to indicate the refresh is complete
@@ -50,7 +48,7 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
-    private suspend fun getCurrentLocationWeather(){
+    suspend fun getCurrentLocationWeather(){
         _uiState.update {currentState ->
             currentState.copy(
                 isLoading = true,

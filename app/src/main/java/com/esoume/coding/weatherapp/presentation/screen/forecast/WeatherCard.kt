@@ -16,7 +16,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.esoume.coding.weatherapp.R
-import com.esoume.coding.weatherapp.presentation.state.WeatherState
+import com.esoume.coding.weatherapp.presentation.state.forecast.WeatherState
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.math.roundToInt

@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.esoume.coding.weatherapp.presentation.screen.onboarding.HomePage
 import com.esoume.coding.weatherapp.presentation.screen.onboarding.WelcomePage
-import com.esoume.coding.weatherapp.presentation.state.WeatherState
+import com.esoume.coding.weatherapp.presentation.state.forecast.WeatherState
 
 @Composable
 fun SetupNavGraph(
