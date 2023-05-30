@@ -64,9 +64,12 @@ class MainActivity : ComponentActivity() {
 
             WeatherAppTheme {
                 val navController = rememberNavController()
+                val state = viewModel.uiState.collectAsState().value
+                val city = state.city
                 val stateWidget: WeatherWidgetInfo =
-                    viewModel.uiState.collectAsState().value.weatherInfo?.currentWeather?.toWeatherWidgetInfo()
-                        ?: WeatherWidgetInfo()
+                    state.weatherInfo?.currentWeather?.copy(city = city)?.let {
+                        it.toWeatherWidgetInfo()
+                    } ?: WeatherWidgetInfo()
 
                 StartAppWidget(state = stateWidget)
                 SetupNavGraph(

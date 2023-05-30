@@ -55,6 +55,7 @@ fun CurrentWeatherDto.toCurrentWeatherInfo(): CurrentWeatherInfo {
 
 fun CurrentWeatherInfo.toWeatherWidgetInfo(): WeatherWidgetInfo{
     return WeatherWidgetInfo(
+        city = city,
         temperature = temperature,
         windSpeed = windSpeed,
         windDirection = windDirection,

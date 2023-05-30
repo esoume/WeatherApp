@@ -40,15 +40,26 @@ fun WeatherCard(
                     .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(
-                    text = "Today ${
-                        LocalDateTime.now().format(
-                            DateTimeFormatter.ofPattern("HH:mm")
-                        )
-                    }",
-                    modifier = Modifier.align(Alignment.End),
-                    color = Color.White
-                )
+                Row(
+                    horizontalArrangement = Arrangement.SpaceAround,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = state.city,
+                        modifier = Modifier.weight(0.5f),
+                        color = Color.White
+                    )
+                    Text(
+                        text = "Today ${
+                            LocalDateTime.now().format(
+                                DateTimeFormatter.ofPattern("HH:mm")
+                            )
+                        }",
+                        modifier = Modifier.weight(0.5f),
+                        color = Color.White
+                    )
+                }
+
                 Spacer(modifier = Modifier.height(16.dp))
                 Image(
                     painter = painterResource(id = currentWeatherInfo.weatherType.iconRes),

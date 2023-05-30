@@ -4,6 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class WeatherWidgetInfo(
+    val city: String = "",
     val temperature: Double = 0.0,
     val windSpeed: Double = 0.0,
     val windDirection: Double = 0.0,

@@ -15,7 +15,6 @@ import androidx.glance.unit.ColorProvider
 import com.esoume.coding.weatherapp.domain.weather.WeatherType
 import com.esoume.coding.weatherapp.presentation.state.widget.WeatherInfoStateDefinition
 import com.esoume.coding.weatherapp.presentation.state.widget.WeatherWidgetInfo
-import com.esoume.coding.weatherapp.presentation.theme.DarkBlue
 
 object WeatherAppWidget : GlanceAppWidget() {
 
@@ -28,7 +27,7 @@ object WeatherAppWidget : GlanceAppWidget() {
 
         state.let { weatherWidgetInfo ->
             Box(
-                modifier = GlanceModifier.background(DarkBlue).padding(5.dp)
+                modifier = GlanceModifier.background(Color.Transparent).padding(5.dp)
             ) {
                 Column(
                     modifier = GlanceModifier
@@ -40,14 +39,14 @@ object WeatherAppWidget : GlanceAppWidget() {
                         modifier = GlanceModifier.fillMaxWidth()
                     ) {
                         Text(
-                            text = "Montréal",
+                            text = weatherWidgetInfo.city,
                             style = TextStyle(
                                 fontWeight = FontWeight.Medium,
                                 color = ColorProvider(Color.White),
                                 fontSize = 10.sp
                             )
                         )
-                        Spacer(modifier = GlanceModifier.width(5.dp))
+                        Spacer(modifier = GlanceModifier.width(10.dp))
                         Text(
                             text = "Today ${weatherWidgetInfo.time}",
                             style = TextStyle(
@@ -77,7 +76,7 @@ object WeatherAppWidget : GlanceAppWidget() {
                     )
                     Spacer(modifier = GlanceModifier.height(5.dp))
                     Button(
-                        text = "Open",
+                        text = "Refresh",
                         modifier = GlanceModifier
                             .wrapContentWidth()
                             .wrapContentHeight(),
