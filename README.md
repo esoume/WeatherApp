@@ -34,9 +34,12 @@ Sample App to showcase how use the open API Meteo
 
 - Jetpack Compose UI. Custom animations, transiations, light/dark theme and layouts.
 - Material design 3
+- App Widget with Glance Library
+- Add Pull-To-refresh
 - Jetpack Compose Navigation
 - Clean Architecutre
 - Dependency injection with Hilt
 - Retrieves Weather Data from the network specifically from Rest Api
 - Media style notifications
+- Add CrashLytic
 
