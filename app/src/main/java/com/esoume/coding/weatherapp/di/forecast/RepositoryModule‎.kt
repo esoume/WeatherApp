@@ -19,4 +19,5 @@ abstract class RepositoryModule {
     abstract fun bindWeatherRepository(
         weatherRepositoryImpl: WeatherRepositoryImpl
     ): WeatherRepository
+
 }

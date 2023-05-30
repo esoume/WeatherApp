@@ -45,7 +45,7 @@ fun WeatherCard(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = state.city,
+                        text = state.weatherInfo.city,
                         modifier = Modifier.weight(0.5f),
                         color = Color.White
                     )

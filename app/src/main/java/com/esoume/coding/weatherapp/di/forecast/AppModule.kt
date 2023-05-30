@@ -1,7 +1,9 @@
 package com.esoume.coding.weatherapp.di.forecast
 
 import android.app.Application
+import android.content.Context
 import com.esoume.coding.weatherapp.data.remote.forecast.api.WeatherApi
+import com.esoume.coding.weatherapp.domain.util.LocationInfo
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.Module
@@ -39,4 +41,10 @@ object AppModule {
     fun provideFusedLocationProviderClient(app: Application): FusedLocationProviderClient {
         return LocationServices.getFusedLocationProviderClient(app)
     }
+
+    @Provides
+    @Singleton
+    fun provideLocationInfo(
+        context: Context
+    ): LocationInfo = LocationInfo(context)
 }

@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.compose.ui.platform.LocalContext
 import androidx.glance.appwidget.GlanceAppWidgetManager
 import androidx.glance.appwidget.state.updateAppWidgetState
 import androidx.glance.appwidget.updateAll
@@ -20,6 +19,7 @@ import androidx.navigation.compose.rememberNavController
 import com.esoume.coding.weatherapp.data.mappers.toWeatherWidgetInfo
 import com.esoume.coding.weatherapp.presentation.navigation.SetupNavGraph
 import com.esoume.coding.weatherapp.presentation.screen.appwidget.WeatherAppWidget
+import com.esoume.coding.weatherapp.presentation.state.forecast.WeatherState
 import com.esoume.coding.weatherapp.presentation.state.widget.WeatherInfoStateDefinition
 import com.esoume.coding.weatherapp.presentation.state.widget.WeatherWidgetInfo
 import com.esoume.coding.weatherapp.presentation.theme.WeatherAppTheme
@@ -35,6 +35,9 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var splashScreenViewModel: SplashScreenViewModel
+
+    @Inject
+    lateinit var context: Context
 
     private val viewModel: WeatherViewModel by viewModels()
 
@@ -65,18 +68,16 @@ class MainActivity : ComponentActivity() {
             WeatherAppTheme {
                 val navController = rememberNavController()
                 val state = viewModel.uiState.collectAsState().value
-                val city = state.city
-                val stateWidget: WeatherWidgetInfo =
-                    state.weatherInfo?.currentWeather?.copy(city = city)?.let {
-                        it.toWeatherWidgetInfo()
-                    } ?: WeatherWidgetInfo()
 
-                StartAppWidget(state = stateWidget)
+                StartAppWidget(
+                    state = state,
+                    context = context
+                )
                 SetupNavGraph(
                     navController = navController,
                     splashScreen = splashScreen,
                     startDestination = splashScreenViewModel.getDestination(),
-                    weatherUiState = viewModel.uiState.collectAsState().value,
+                    weatherUiState = state,
                     refreshing = viewModel.isRefresh.collectAsState().value,
                     onRefresh = { viewModel::refresh }
                 )
@@ -87,12 +88,15 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun StartAppWidget(
-    context: Context = LocalContext.current,
-    state: WeatherWidgetInfo
+    context: Context,
+    state: WeatherState,
 ) {
-
     LaunchedEffect(key1 = state) {
         MainScope().launch {
+            val stateWidget: WeatherWidgetInfo =
+                state.weatherInfo?.currentWeather?.copy(city = state.weatherInfo.city)?.toWeatherWidgetInfo()
+                    ?: WeatherWidgetInfo()
+
             val manager = GlanceAppWidgetManager(context = context)
             val glanceIds = manager.getGlanceIds(WeatherAppWidget::class.java)
             glanceIds.forEach { glanceId ->
@@ -100,7 +104,7 @@ private fun StartAppWidget(
                     context = context,
                     glanceId = glanceId,
                     definition = WeatherInfoStateDefinition,
-                    updateState = { state }
+                    updateState = { stateWidget }
                 )
             }
             WeatherAppWidget.updateAll(context)
