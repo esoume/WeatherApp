@@ -9,7 +9,8 @@ Sample App to showcase how use the open API Meteo
     <img src="https://github.com/esoume/WeatherApp/assets/7129880/321c8622-0296-4a25-90c9-5b4801307582" width="22%">
     <img src="https://github.com/esoume/WeatherApp/assets/7129880/a193b87c-6416-4981-b309-99ced38fc14b" width="22%">
     <img src="https://github.com/esoume/WeatherApp/assets/7129880/f1d8f692-f064-4fa5-a911-fbd23f5a0f14" width="22%">
-</div>
+    <img src="https://github.com/esoume/WeatherApp/assets/7129880/52f99909-3ced-4f15-99b9-682a53aa1469" width="22%"
+</div>!
 
 ## Tech stack & Open-source libraries
 - [Kotlin](https://kotlinlang.org/) based
