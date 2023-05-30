@@ -17,6 +17,7 @@ Sample App to showcase how use the open API Meteo
 - [SplashScreen API] (https://developer.android.com/develop/ui/views/launch/splash-screen)
 - [Pull-To-Refresh] (https://developer.android.com/reference/kotlin/androidx/compose/material/pullrefresh/package-summary)
 - [DeepLinks] (https://developer.android.com/training/app-links/deep-linking)
+- [AppWidget With Glance Library] (https://medium.com/@avengers14.blogger/introduction-of-jetpack-glance-app-widgets-part-1-475ff3da1dcf)
 - [JetPack](https://developer.android.com/jetpack)
   - [Compose](https://developer.android.com/jetpack/compose) - Modern toolkit for building native UI.
   - [Lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle) - Create a UI that automatically responds to lifecycle events.
@@ -27,6 +28,7 @@ Sample App to showcase how use the open API Meteo
 - An image loading library for Android backed by Kotlin Coroutines.
 - [Firebase](https://firebase.google.com/) 
 - Firestore Database and Storage
+- [CrashLytic] Integrate CrashLytic of Firebase in App
 
 ## Features
 
