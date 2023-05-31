@@ -5,6 +5,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.glance.*
+import androidx.glance.action.actionStartActivity
+import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.action.actionRunCallback
 import androidx.glance.layout.*
@@ -13,6 +15,7 @@ import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
 import com.esoume.coding.weatherapp.domain.weather.WeatherType
+import com.esoume.coding.weatherapp.presentation.MainActivity
 import com.esoume.coding.weatherapp.presentation.state.widget.WeatherInfoStateDefinition
 import com.esoume.coding.weatherapp.presentation.state.widget.WeatherWidgetInfo
 
@@ -23,6 +26,8 @@ object WeatherAppWidget : GlanceAppWidget() {
     @Composable
     override fun Content() {
 
+        val actionStartApp = actionStartActivity(MainActivity::class.java)
+        val actionRefresh = actionRunCallback(WeatherActionCallback::class.java)
         val state = currentState<WeatherWidgetInfo>()
 
         state.let { weatherWidgetInfo ->
@@ -64,7 +69,9 @@ object WeatherAppWidget : GlanceAppWidget() {
                             color = ColorProvider(Color.White),
                             fontSize = 20.sp
                         ),
-                        maxLines = 1
+                        maxLines = 1,
+                        modifier = GlanceModifier
+                            .clickable(onClick = actionStartApp)
                     )
                     Spacer(modifier = GlanceModifier.height(5.dp))
                     Image(
@@ -73,6 +80,7 @@ object WeatherAppWidget : GlanceAppWidget() {
                         modifier = GlanceModifier
                             .width(50.dp)
                             .height(50.dp)
+                            .clickable(onClick = actionStartApp)
                     )
                     Spacer(modifier = GlanceModifier.height(5.dp))
                     Button(
@@ -80,7 +88,7 @@ object WeatherAppWidget : GlanceAppWidget() {
                         modifier = GlanceModifier
                             .wrapContentWidth()
                             .wrapContentHeight(),
-                        onClick = actionRunCallback(WeatherActionCallback::class.java)
+                        onClick = actionRefresh
                     )
                 }
             }

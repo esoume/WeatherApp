@@ -32,7 +32,7 @@ fun WeatherCard(
         Card(
             backgroundColor = backgroundColor,
             shape = RoundedCornerShape(10.dp),
-            modifier = modifier.padding(16.dp)
+            modifier = modifier.padding(10.dp)
         ) {
             Column(
                 modifier = Modifier
@@ -41,12 +41,11 @@ fun WeatherCard(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Row(
-                    horizontalArrangement = Arrangement.SpaceAround,
+                    horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
                         text = state.weatherInfo.city,
-                        modifier = Modifier.weight(0.5f),
                         color = Color.White
                     )
                     Text(
@@ -55,12 +54,11 @@ fun WeatherCard(
                                 DateTimeFormatter.ofPattern("HH:mm")
                             )
                         }",
-                        modifier = Modifier.weight(0.5f),
                         color = Color.White
                     )
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(10.dp))
                 Image(
                     painter = painterResource(id = currentWeatherInfo.weatherType.iconRes),
                     contentDescription = null,
@@ -78,7 +76,7 @@ fun WeatherCard(
                     fontSize = 20.sp,
                     color = Color.White
                 )
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(20.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceAround
