@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.glance.*
+import androidx.glance.action.Action
 import androidx.glance.action.actionStartActivity
 import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
@@ -18,16 +19,18 @@ import com.esoume.coding.weatherapp.domain.weather.WeatherType
 import com.esoume.coding.weatherapp.presentation.MainActivity
 import com.esoume.coding.weatherapp.presentation.state.widget.WeatherInfoStateDefinition
 import com.esoume.coding.weatherapp.presentation.state.widget.WeatherWidgetInfo
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 object WeatherAppWidget : GlanceAppWidget() {
 
     override val stateDefinition = WeatherInfoStateDefinition
 
+    private var lastTimeRefresh: String = ""
+
     @Composable
     override fun Content() {
 
-        val actionStartApp = actionStartActivity(MainActivity::class.java)
-        val actionRefresh = actionRunCallback(WeatherActionCallback::class.java)
         val state = currentState<WeatherWidgetInfo>()
 
         state.let { weatherWidgetInfo ->
@@ -39,28 +42,15 @@ object WeatherAppWidget : GlanceAppWidget() {
                         .fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Row(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = GlanceModifier.fillMaxWidth()
-                    ) {
-                        Text(
-                            text = weatherWidgetInfo.city,
-                            style = TextStyle(
-                                fontWeight = FontWeight.Medium,
-                                color = ColorProvider(Color.White),
-                                fontSize = 10.sp
-                            )
+                    Text(
+                        text = weatherWidgetInfo.city,
+                        modifier = GlanceModifier.visibility(isVisibility(weatherWidgetInfo.city)),
+                        style = TextStyle(
+                            fontWeight = FontWeight.Medium,
+                            color = ColorProvider(Color.White),
+                            fontSize = 16.sp
                         )
-                        Spacer(modifier = GlanceModifier.width(10.dp))
-                        Text(
-                            text = "Today ${weatherWidgetInfo.time}",
-                            style = TextStyle(
-                                fontWeight = FontWeight.Medium,
-                                color = ColorProvider(Color.White),
-                                fontSize = 10.sp
-                            )
-                        )
-                    }
+                    )
                     Spacer(modifier = GlanceModifier.height(5.dp))
                     Text(
                         text = "${weatherWidgetInfo.temperature}°C",
@@ -71,7 +61,7 @@ object WeatherAppWidget : GlanceAppWidget() {
                         ),
                         maxLines = 1,
                         modifier = GlanceModifier
-                            .clickable(onClick = actionStartApp)
+                            .clickable(onClick = actionStartApp())
                     )
                     Spacer(modifier = GlanceModifier.height(5.dp))
                     Image(
@@ -80,19 +70,49 @@ object WeatherAppWidget : GlanceAppWidget() {
                         modifier = GlanceModifier
                             .width(50.dp)
                             .height(50.dp)
-                            .clickable(onClick = actionStartApp)
+                            .clickable(onClick = actionStartApp())
+                    )
+                    Spacer(modifier = GlanceModifier.height(5.dp))
+                    Text(
+                        text = "MAJ $lastTimeRefresh",
+                        modifier = GlanceModifier.visibility(isVisibility(lastTimeRefresh)),
+                        style = TextStyle(
+                            fontWeight = FontWeight.Bold,
+                            color = ColorProvider(Color.White),
+                            fontSize = 10.sp
+                        ),
+                        maxLines = 1
                     )
                     Spacer(modifier = GlanceModifier.height(5.dp))
                     Button(
                         text = "Refresh",
                         modifier = GlanceModifier
                             .wrapContentWidth()
-                            .wrapContentHeight(),
-                        onClick = actionRefresh
+                            .wrapContentHeight()
+                            .clickable(actionRefresh()),
+                        onClick = actionRefresh()
                     )
                 }
             }
 
         }
+    }
+
+    private fun actionRefresh(): Action {
+        lastTimeRefresh = LocalDateTime.now().format(
+            DateTimeFormatter.ofPattern("HH:mm")
+        )
+        return actionRunCallback(WeatherActionCallback::class.java)
+    }
+
+    private fun actionStartApp(): Action {
+        lastTimeRefresh = LocalDateTime.now().format(
+            DateTimeFormatter.ofPattern("HH:mm")
+        )
+        return actionStartActivity(MainActivity::class.java)
+    }
+
+    private fun isVisibility(text: String): Visibility {
+        return if (text.isNotEmpty()) Visibility.Visible else Visibility.Gone
     }
 }
