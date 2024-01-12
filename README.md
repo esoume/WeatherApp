@@ -17,6 +17,7 @@ Sample App to showcase how use the open API Meteo
 - [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) for asynchronous.
 - [SplashScreen API] (https://developer.android.com/develop/ui/views/launch/splash-screen)
 - [Pull-To-Refresh] (https://developer.android.com/reference/kotlin/androidx/compose/material/pullrefresh/package-summary)
+- [Notifications] (https://proandroiddev.com/all-about-notifications-in-android-718961054961)
 - [DeepLinks] (https://developer.android.com/training/app-links/deep-linking)
 - [AppWidget With Glance Library] (https://medium.com/@avengers14.blogger/introduction-of-jetpack-glance-app-widgets-part-1-475ff3da1dcf)
 - [JetPack](https://developer.android.com/jetpack)
@@ -26,7 +27,6 @@ Sample App to showcase how use the open API Meteo
   - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - UI related data holder, lifecycle aware.
 - [Hilt](https://dagger.dev/hilt/) 
 - For [dependency injection](https://developer.android.com/training/dependency-injection/hilt-android).
-- An image loading library for Android backed by Kotlin Coroutines.
 - [Firebase](https://firebase.google.com/) 
 - Firestore Database and Storage
 - [CrashLytic] Integrate CrashLytic of Firebase in App
@@ -37,6 +37,7 @@ Sample App to showcase how use the open API Meteo
 - Material design 3
 - App Widget with Glance Library
 - Add Pull-To-refresh
+- Notifications
 - Jetpack Compose Navigation
 - Clean Architecutre
 - Dependency injection with Hilt
