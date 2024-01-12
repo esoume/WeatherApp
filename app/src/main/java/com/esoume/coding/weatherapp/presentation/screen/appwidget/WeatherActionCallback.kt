@@ -14,8 +14,10 @@ import com.esoume.coding.weatherapp.domain.repository.forecast.WeatherRepository
 import com.esoume.coding.weatherapp.domain.util.Resource
 import com.esoume.coding.weatherapp.presentation.state.widget.WeatherInfoStateDefinition
 import com.esoume.coding.weatherapp.presentation.state.widget.WeatherWidgetInfo
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -36,7 +38,7 @@ class WeatherActionCallback : ActionCallback {
 class WeatherLocationWorker(
     private val context: Context,
     workerParameters: WorkerParameters
-): CoroutineWorker(context, workerParameters) {
+) : CoroutineWorker(context, workerParameters) {
 
     @Inject
     lateinit var repository: WeatherRepository
@@ -47,43 +49,54 @@ class WeatherLocationWorker(
     override suspend fun doWork(): Result {
         val manager = GlanceAppWidgetManager(context)
         val glanceIds = manager.getGlanceIds(WeatherAppWidget::class.java)
+        return withContext(IO) {
+            try {
+                locationTracker.getCurrentLocation()?.let { location ->
 
-        return try {
-            locationTracker.getCurrentLocation()?.let { location ->
-
-                when (val result = repository.getWeatherData(
-                    location.latitude,
-                    location.longitude)
-                ) {
-                    is Resource.Success -> {
-                        setWidgetState(
-                            glanceIds = glanceIds,
-                            newState = result.data?.currentWeather?.toWeatherWidgetInfo()
+                    when (val result = repository.getWeatherData(
+                        location.latitude,
+                        location.longitude
+                    )
+                    ) {
+                        is Resource.Success -> {
+                            val newstate = result.data?.currentWeather?.toWeatherWidgetInfo()
                                 ?: WeatherWidgetInfo()
-                        )
-                    }
-                    is Resource.Error -> {
-                        setWidgetState(
-                            glanceIds = glanceIds,
-                            newState = WeatherWidgetInfo()
-                        )
+                            setWidgetState(
+                                glanceIds = glanceIds,
+                                newState = newstate
+                            )
+
+                            println("WeatherActionCallback : result = ${newstate.toString()}")
+                        }
+
+                        is Resource.Error -> {
+                            setWidgetState(
+                                glanceIds = glanceIds,
+                                newState = WeatherWidgetInfo()
+                            )
+
+                            println("WeatherActionCallback : result = Resource.Error")
+                        }
                     }
                 }
+
+                enqueue(context)
+                Result.success()
+            } catch (e: Exception) {
+                setWidgetState(
+                    glanceIds,
+                    WeatherWidgetInfo()
+                )
+                println("WeatherActionCallback : catch = ${e.printStackTrace()}")
+                Result.failure()
             }
-            enqueue(context)
-            Result.success()
-        }catch (e: Exception) {
-            setWidgetState(
-                glanceIds,
-                WeatherWidgetInfo()
-            )
-            Result.failure()
         }
     }
 
     private fun setWidgetState(
         glanceIds: List<GlanceId>,
-        newState: WeatherWidgetInfo) {
+        newState: WeatherWidgetInfo
+    ) {
         MainScope().launch {
             glanceIds.forEach { glanceId ->
                 updateAppWidgetState(
@@ -97,13 +110,17 @@ class WeatherLocationWorker(
         }
     }
 
-    companion object{
+    companion object {
 
         private val uniqueWorkName = WeatherLocationWorker::class.java.simpleName
 
         fun enqueue(context: Context, force: Boolean = false) {
             val manager = WorkManager.getInstance(context)
+            val constraints = Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build()
             val requestBuilder = OneTimeWorkRequestBuilder<WeatherLocationWorker>()
+                .setConstraints(constraints)
                 .setInitialDelay(1, TimeUnit.MINUTES)
             var workPolicy = ExistingWorkPolicy.KEEP
 

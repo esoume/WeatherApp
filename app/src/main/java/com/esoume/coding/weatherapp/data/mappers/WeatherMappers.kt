@@ -49,7 +49,7 @@ fun CurrentWeatherDto.toCurrentWeatherInfo(): CurrentWeatherInfo {
         windSpeed = windspeed,
         windDirection = winddirection,
         weatherType = WeatherType.fromWMO(weathercode),
-        is_day = is_day,
+        isDay = isDay,
         time = LocalDateTime.parse(time, DateTimeFormatter.ISO_DATE_TIME)
     )
 }
@@ -61,7 +61,7 @@ fun CurrentWeatherInfo.toWeatherWidgetInfo(): WeatherWidgetInfo{
         windSpeed = windSpeed,
         windDirection = windDirection,
         time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")),
-        is_day = is_day,
+        isDay = isDay,
         weatherCode = WeatherType.toWMO(weatherType)
     )
 }

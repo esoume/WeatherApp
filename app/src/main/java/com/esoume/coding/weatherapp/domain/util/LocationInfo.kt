@@ -1,20 +1,20 @@
 package com.esoume.coding.weatherapp.domain.util
 
-import android.content.Context
+import android.app.Application
 import android.location.Geocoder
 import java.util.*
 import javax.inject.Inject
 
 @Suppress("DEPRECATION")
 class LocationInfo @Inject constructor(
-    private val context: Context
+    private val application: Application
 ) {
 
     fun getCityName(
         latitude: Double,
         longitude: Double
     ):String {
-        val geoCoder = Geocoder(context, Locale.getDefault())
+        val geoCoder = Geocoder(application, Locale.getDefault())
         val addresses = geoCoder.getFromLocation(latitude, longitude, 1)
         addresses?.size.let {
             val locality = addresses!![0].locality

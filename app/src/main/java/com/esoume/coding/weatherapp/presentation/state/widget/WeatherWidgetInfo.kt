@@ -9,6 +9,6 @@ data class WeatherWidgetInfo(
     val windSpeed: Double = 0.0,
     val windDirection: Double = 0.0,
     val weatherCode: Int = 0,
-    val is_day: Int = 1,
+    val isDay: Int = 0,
     val time: String = "",
 )

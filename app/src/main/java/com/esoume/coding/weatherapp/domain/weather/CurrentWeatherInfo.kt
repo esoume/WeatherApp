@@ -8,6 +8,6 @@ data class CurrentWeatherInfo(
     val windSpeed: Double,
     val windDirection: Double,
     val weatherType: WeatherType,
-    val is_day: Int,
+    val isDay: Int,
     val time: LocalDateTime,
 )

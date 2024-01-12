@@ -35,7 +35,7 @@ object WeatherInfoStateDefinition: GlanceStateDefinition<WeatherWidgetInfo> {
             temperature = 0.0,
             windSpeed = 0.0,
             windDirection = 0.0,
-            is_day = 1,
+            isDay = 1,
             time = "1h00",
             weatherCode = 0
         )

@@ -16,7 +16,7 @@ data class CurrentWeatherDto(
     val weathercode: Int,
 
     @field:Json(name = "is_day")
-    val is_day: Int,
+    val isDay: Int,
 
     @field:Json(name = "time")
     val time: String,

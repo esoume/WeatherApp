@@ -26,8 +26,6 @@ object WeatherAppWidget : GlanceAppWidget() {
 
     override val stateDefinition = WeatherInfoStateDefinition
 
-    private var lastTimeRefresh: String = ""
-
     @Composable
     override fun Content() {
 
@@ -74,8 +72,8 @@ object WeatherAppWidget : GlanceAppWidget() {
                     )
                     Spacer(modifier = GlanceModifier.height(5.dp))
                     Text(
-                        text = "MAJ $lastTimeRefresh",
-                        modifier = GlanceModifier.visibility(isVisibility(lastTimeRefresh)),
+                        text = "MAJ ${lastTimeRefresh()}",
+                        modifier = GlanceModifier.visibility(isVisibility(lastTimeRefresh())),
                         style = TextStyle(
                             fontWeight = FontWeight.Bold,
                             color = ColorProvider(Color.White),
@@ -99,20 +97,19 @@ object WeatherAppWidget : GlanceAppWidget() {
     }
 
     private fun actionRefresh(): Action {
-        lastTimeRefresh = LocalDateTime.now().format(
-            DateTimeFormatter.ofPattern("HH:mm")
-        )
+        lastTimeRefresh()
         return actionRunCallback(WeatherActionCallback::class.java)
     }
 
     private fun actionStartApp(): Action {
-        lastTimeRefresh = LocalDateTime.now().format(
-            DateTimeFormatter.ofPattern("HH:mm")
-        )
+        lastTimeRefresh()
         return actionStartActivity(MainActivity::class.java)
     }
 
-    private fun isVisibility(text: String): Visibility {
-        return if (text.isNotEmpty()) Visibility.Visible else Visibility.Gone
-    }
+    private fun lastTimeRefresh():String = LocalDateTime.now().format(
+        DateTimeFormatter.ofPattern("HH:mm")
+    )
+
+    private fun isVisibility(text: String): Visibility = if(text.isNotEmpty()) Visibility.Visible else Visibility.Gone
+
 }
